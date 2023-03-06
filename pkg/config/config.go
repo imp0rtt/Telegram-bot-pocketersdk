@@ -22,6 +22,7 @@ type Messages struct {
 type Errors struct {
 	Default      string `mapstructure:"default"`
 	InvalidURL   string `mapstructure:"invalid_url"`
+	Unauthorized string `mapstructure:"unauthorized"`
 	UnableToSave string `mapstructure:"unable_to_save"`
 }
 
@@ -65,15 +66,16 @@ func parsEnv(cfg *Config) error {
 	if err := viper.BindEnv("token"); err != nil {
 		return err
 	}
+	cfg.TelegramToken = viper.GetString("token")
+
 	if err := viper.BindEnv("consumer_key"); err != nil {
 		return err
 	}
+	cfg.PocketConsumerKey = viper.GetString("consumer_key")
+
 	if err := viper.BindEnv("auth_server_url"); err != nil {
 		return err
 	}
-
-	cfg.TelegramToken = viper.GetString("token")
-	cfg.PocketConsumerKey = viper.GetString("consumer_key")
 	cfg.AuthServerURL = viper.GetString("auth_server_url")
 
 	return nil

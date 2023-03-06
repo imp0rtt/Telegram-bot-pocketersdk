@@ -5,14 +5,10 @@ import (
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api"
 )
 
-//msg.Text = "Невалиднаы сслыка!"
-//msg.Text = "Ты не авторизирован"
-//msg.Text = "Не удалось созранить ссылку"
-
 var (
 	errInvalidURL   = errors.New("url is invalid")
 	errUnauthorized = errors.New("user us  not authorized")
-	errUnableToSave = errors.New("Unamle to save")
+	errUnableToSave = errors.New("Unable to save")
 )
 
 func (b *Bot) handleError(chatID int64, err error) {
@@ -22,7 +18,7 @@ func (b *Bot) handleError(chatID int64, err error) {
 		msg.Text = b.messages.InvalidURL
 		b.bot.Send(msg)
 	case errUnauthorized:
-		msg.Text = "Ты не авторизирован!"
+		msg.Text = b.messages.Unauthorized
 		b.bot.Send(msg)
 	case errUnableToSave:
 		msg.Text = b.messages.UnableToSave
